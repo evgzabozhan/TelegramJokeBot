@@ -1,16 +1,20 @@
 package joke;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.util.JSONPObject;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
 import java.io.IOException;
+import java.util.Objects;
 
 public class JokeApi {
-    
+
     private static final String apiKey = "26df2cc4ddmsh6bd5c2396e45eecp17df54jsn3ca4829c9df9";
 
-    public String getRandomJoke() throws IOException {
+    public Joke getRandomJoke() throws IOException {
 
         OkHttpClient client = new OkHttpClient();
 
@@ -23,10 +27,10 @@ public class JokeApi {
 
         Response response = client.newCall(request).execute();
 
-        return response.body().string();
+        return getJokeFromJson(Objects.requireNonNull(response.body()).string());
     }
 
-    public String getJokeById(String id) throws IOException {
+    public Joke getJokeById(String id) throws IOException {
 
         OkHttpClient client = new OkHttpClient();
 
@@ -39,15 +43,14 @@ public class JokeApi {
 
         Response response = client.newCall(request).execute();
 
-
-        return response.body().string();
+        return getJokeFromJson(Objects.requireNonNull(response.body()).string());
     }
 
     public void upVoteJoke(String id) throws IOException {
         OkHttpClient client = new OkHttpClient();
 
         Request request = new Request.Builder()
-                .url("https://joke3.p.rapidapi.com/v1/joke/%7Bid%7D/upvote")
+                .url("https://joke3.p.rapidapi.com/v1/joke/" + id + "/upvote")
                 .post(null)
                 .addHeader("x-rapidapi-host", "joke3.p.rapidapi.com")
                 .addHeader("x-rapidapi-key", apiKey)
@@ -61,7 +64,7 @@ public class JokeApi {
         OkHttpClient client = new OkHttpClient();
 
         Request request = new Request.Builder()
-                .url("https://joke3.p.rapidapi.com/v1/joke/%7Bid%7D/downvote")
+                .url("https://joke3.p.rapidapi.com/v1/joke/" + id + "/downvote")
                 .post(null)
                 .addHeader("x-rapidapi-host", "joke3.p.rapidapi.com")
                 .addHeader("x-rapidapi-key", apiKey)
@@ -71,8 +74,9 @@ public class JokeApi {
         Response response = client.newCall(request).execute();
     }
 
-    private Joke getJokeFromJson(String json){
+    private Joke getJokeFromJson(String json) throws JsonProcessingException {
+        ObjectMapper objectMapper = new ObjectMapper();
 
-        return new Joke("1","2",3,4);
+        return objectMapper.readValue(json, Joke.class);
     }
 }

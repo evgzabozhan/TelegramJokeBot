@@ -4,45 +4,47 @@ public class Joke {
 
    private String id;
    private String content;
-   private int upVotes;
-   private int downVotes;
+   private String nsfw;
+   private int upvotes;
+   private int downvotes;
 
     public String getId() {
         return id;
-    }
-
-    public String getContent() {
-        return content;
-    }
-
-    public int getUpVotes() {
-        return upVotes;
-    }
-
-    public int getDownVotes() {
-        return downVotes;
     }
 
     public void setId(String id) {
         this.id = id;
     }
 
+    public String getContent() {
+        return content;
+    }
+
     public void setContent(String content) {
         this.content = content;
     }
 
-    public void setUpVotes(int upVotes) {
-        this.upVotes = upVotes;
+    public String getNsfw() {
+        return nsfw;
     }
 
-    public void setDownVotes(int downVotes) {
-        this.downVotes = downVotes;
+    public void setNsfw(String nsfw) {
+        this.nsfw = nsfw;
     }
 
-    public Joke(String id, String content, int upVotes, int downVotes) {
-        this.id = id;
-        this.content = content;
-        this.upVotes = upVotes;
-        this.downVotes = downVotes;
+    public int getUpvotes() {
+        return upvotes;
+    }
+
+    public void setUpvotes(int upvotes) {
+        this.upvotes = upvotes;
+    }
+
+    public int getDownvotes() {
+        return downvotes;
+    }
+
+    public void setDownvotes(int downvotes) {
+        this.downvotes = downvotes;
     }
 }
