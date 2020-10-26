@@ -12,7 +12,7 @@ import java.util.Objects;
 
 public class JokeApi {
 
-    private static final String apiKey = "26df2cc4ddmsh6bd5c2396e45eecp17df54jsn3ca4829c9df9";
+    private static final String apiKey = "";
 
     public Joke getRandomJoke() throws IOException {
 
