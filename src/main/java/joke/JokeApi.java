@@ -2,7 +2,7 @@ package joke;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.util.JSONPObject;
+import config.ApplicationProperties;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -12,7 +12,7 @@ import java.util.Objects;
 
 public class JokeApi {
 
-    private static final String apiKey = "26df2cc4ddmsh6bd5c2396e45eecp17df54jsn3ca4829c9df9";
+    private static final String apiKey = ApplicationProperties.getApiKey();
 
     public Joke getRandomJoke() throws IOException {
 
@@ -46,7 +46,7 @@ public class JokeApi {
         return getJokeFromJson(Objects.requireNonNull(response.body()).string());
     }
 
-    public void upVoteJoke(String id) throws IOException {
+    public String upVoteJoke(String id) throws IOException {
         OkHttpClient client = new OkHttpClient();
 
         Request request = new Request.Builder()
@@ -58,9 +58,11 @@ public class JokeApi {
                 .build();
 
         Response response = client.newCall(request).execute();
+
+        return "upvoted!";
     }
 
-    public void downVoteJoke(String id) throws IOException {
+    public String downVoteJoke(String id) throws IOException {
         OkHttpClient client = new OkHttpClient();
 
         Request request = new Request.Builder()
@@ -72,6 +74,8 @@ public class JokeApi {
                 .build();
 
         Response response = client.newCall(request).execute();
+
+        return "downvoted!";
     }
 
     private Joke getJokeFromJson(String json) throws JsonProcessingException {
