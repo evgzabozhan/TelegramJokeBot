@@ -1,12 +1,16 @@
 import config.ApplicationProperties;
+import joke.JokeApi;
 import org.apache.commons.configuration.ConfigurationException;
 import org.telegram.telegrambots.ApiContextInitializer;
 import org.telegram.telegrambots.meta.TelegramBotsApi;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import telegram.TelegramApi;
 
+import java.io.IOException;
+
 public class Application {
     public static void main(String[] args) throws ConfigurationException {
+
         ApplicationProperties applicationProperties = new ApplicationProperties();
         applicationProperties.setProperties();
 
